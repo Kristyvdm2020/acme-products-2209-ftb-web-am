@@ -16,14 +16,7 @@ const App = ()=> {
   return (
     <div>
       <h1>React Client Template</h1>
-      <Routes>
-        <Route 
-          path='/*' 
-          element = {
-            <Nav products={products}/>
-        }
-        />
-      </Routes>
+      <Nav products={products}/>
       <Routes>
         <Route path='/' element= { <div>Home</div>}/>
         <Route path='/products' element={
