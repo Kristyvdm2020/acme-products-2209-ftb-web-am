@@ -1,41 +1,9 @@
 import ReactDOM from 'react-dom/client';
 import React, { useState, useEffect } from 'react';
-import { HashRouter, Routes, Route, Link, useParams } from 'react-router-dom';
-
-const Product = (props) => {
-  const products = props.products;
-  const id = useParams().id;
-  const product = products.find(product => product.id === id);
-  if(!product) {
-    return null;
-  }
-  return (
-    <div>
-      <h1><Link to='/products'>{product.name}</Link></h1>
-      <p>{product.description}</p>
-    </div>
-  )
-}
-
-const Products = (props)=> {
-  const products = props.products;
-  return (
-    <div>
-      <h1>Products</h1>
-      <ul>
-        {
-          products.map(product => {
-            return (
-              <li key={product.id}>
-                <Link to={`/products/${product.id}`}>{product.name}</Link>
-              </li>
-            );
-          })
-        }
-      </ul>
-    </div>
-  );
-}
+import { HashRouter, Routes, Route, Link, useParams, useLocation } from 'react-router-dom';
+import Products from './Products';
+import Product from './Product';
+import Nav from './Nav';
 
 const App = ()=> {
   //https://www.acme-api.com/api/products
@@ -48,10 +16,14 @@ const App = ()=> {
   return (
     <div>
       <h1>React Client Template</h1>
-      <nav>
-        <Link to='/'>Home</Link>
-        <Link to='/products'>Products ({products.length})</Link>
-      </nav>
+      <Routes>
+        <Route 
+          path='/*' 
+          element = {
+            <Nav products={products}/>
+        }
+        />
+      </Routes>
       <Routes>
         <Route path='/' element= { <div>Home</div>}/>
         <Route path='/products' element={
